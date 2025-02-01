@@ -42,7 +42,7 @@ const useDate = () => {
     ];
 
     const today = new Date();
-    const day = today.getDay();
+    const day = today.getDate();
     const year = today.getFullYear();
     let month = months[today.getMonth()];
 

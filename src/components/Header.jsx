@@ -7,7 +7,7 @@ function Header() {
     <>
       <header className="uk-tile uk-padding-small uk-flex uk-flex-between uk-flex-middle uk-box-shadow-medium">
         <div className="">
-          <h1 className="uk-text-bold uk-margin-xsmall">Muke</h1>
+          <h1 className="uk-heading-bullet uk-text-bold uk-margin-xsmall">Muke</h1>
         </div>
         <div className="uk-margin-xsmall uk-flex uk-flex-column">
           <p className="uk-margin-xsmall">
