@@ -6,6 +6,7 @@ const Tasks = ({ newTask, onEditTask, onDeleteTask }) => {
   const [isOpen, setOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
   const [taskIndex, setTaskIndex] = useState(null);
+  const [filter, setFilter] = useState("Todas");
 
   const toggleModal = () => {
     setOpen(!isOpen);
@@ -37,14 +38,32 @@ const Tasks = ({ newTask, onEditTask, onDeleteTask }) => {
     toggleModal();
   };
 
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "Todas") return true;
+    return task.status === filter;
+  });
+
   return (
     <div className="uk-card uk-card-default uk-card-body">
       <h2 className="uk-card-title">Lista de Tareas</h2>
-      {tasks.length === 0 ? (
+      <div className="uk-margin">
+        <label htmlFor="filter" className="uk-form-label">Filtrar por estado:</label>
+        <select
+          id="filter"
+          className="uk-select"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="Todas">Todas</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Terminado">Terminado</option>
+        </select>
+      </div>
+      {filteredTasks.length === 0 ? (
         <p>No hay tareas disponibles. ¡Agrega una nueva tarea!</p>
       ) : (
         <ul>
-          {tasks.map((task, index) => (
+          {filteredTasks.map((task, index) => (
             <li key={index}>
               <h3>{task.title}</h3>
               <p>{task.description}</p>

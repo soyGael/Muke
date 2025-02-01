@@ -42,7 +42,7 @@ function Modal_Change({ toggleModal, addTask, taskToEdit, taskIndex, title = "Ag
     }
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     toggleModal(); 
-    window.location.reload(); // Recargar la página
+    window.location.reload(); 
   };
 
   return ReactDom.createPortal(
