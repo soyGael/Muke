@@ -1,9 +1,10 @@
 /* Modal.css */
 .modal {
+  position: absolute;
   margin: 0 auto;
   width: 100%;
   height: auto;
-  top: 34dvh;
+  top: 27rem;
 }
 
 .modal-enter {

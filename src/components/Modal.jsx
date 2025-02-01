@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import "../styles/Modal.css"; // Asegúrate de importar el archivo CSS
 
-function Modal({ toggleModal }) {
+function Modal({ toggleModal, addTask }) {
   const {
     register,
     handleSubmit,
@@ -21,7 +21,14 @@ function Modal({ toggleModal }) {
     }
   }, [toggleModal]);
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const newTask = {
+      ...data,
+      createdAt: new Date().toLocaleString()
+    };
+    addTask(newTask);
+    toggleModal(); // Cierra el modal después de enviar la información
+  };
 
   console.log(watch("example"));
 
