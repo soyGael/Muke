@@ -41,9 +41,9 @@ const useDate = () => {
       "December",
     ];
 
-    const today = new Date();
-    const day = today.getDate();
-    const year = today.getFullYear();
+    let today = new Date();
+    let day = today.getDate();
+    let year = today.getFullYear();
     let month = months[today.getMonth()];
 
     month = truncateWord(month, 3);

@@ -2,7 +2,6 @@ import useDate from "../Hooks/useDate";
 
 function Header() {
   const { day, month, year, dayOfWeek } = useDate();
-  console.log(dayOfWeek);
   return (
     <>
       <header className="uk-tile uk-padding-small uk-flex uk-flex-between uk-flex-middle uk-box-shadow-medium">
