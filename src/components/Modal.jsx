@@ -1,5 +1,7 @@
 import ReactDom from "react-dom";
 import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import "../styles/Modal.css"; // Asegúrate de importar el archivo CSS
 
 function Modal({ toggleModal }) {
   const {
@@ -9,6 +11,16 @@ function Modal({ toggleModal }) {
     formState: { errors },
   } = useForm();
 
+  const [estado, setEstado] = useState(false);
+
+  useEffect(() => {
+    if (toggleModal) {
+      setEstado(true);
+    } else {
+      setEstado(false);
+    }
+  }, [toggleModal]);
+
   const onSubmit = (data) => console.log(data);
 
   console.log(watch("example"));
@@ -16,13 +28,11 @@ function Modal({ toggleModal }) {
   return ReactDom.createPortal(
     <div
       id="my-id"
-      className="
-      uk-position-bottom-center
-      uk-width-3-4
-      uk-padding-small
-      uk-border-rounded
-      uk-card uk-card-primary uk-card-body
-      "
+      className={`modal uk-width-3-4 uk-padding-small uk-card uk-card-primary uk-card-body ${
+        estado
+          ? "modal-enter modal-enter-active"
+          : "modal-exit modal-exit-active"
+      }`}
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -30,14 +40,11 @@ function Modal({ toggleModal }) {
       
       "
       >
-      <h2 className="uk-heading-small uk-text-bolder">Agregar tarea</h2>
-      <div className="uk-divider-small" style={{background: "white"}}></div>
+        <h2 className="uk-heading-small uk-text-bolder">Agregar tarea</h2>
+        <div className="uk-divider-small" style={{ background: "white" }}></div>
         <div>
           <div className="uk-margin">
-            <label
-              htmlFor=""
-              className="uk-text-lead uk-text-emphasis"
-            >
+            <label htmlFor="" className="uk-text-lead uk-text-emphasis">
               Título de la tarea
             </label>
             <div className="uk-inline">
@@ -61,10 +68,7 @@ function Modal({ toggleModal }) {
           )}
 
           <div className="uk-margin">
-            <label
-              htmlFor=""
-              className="uk-text-lead uk-text-emphasis"
-            >
+            <label htmlFor="" className="uk-text-lead uk-text-emphasis">
               Descripción de la tarea
             </label>
             <div className="uk-inline">
@@ -82,54 +86,28 @@ function Modal({ toggleModal }) {
           </div>
         </div>
         <div>
-
-        <div className="uk-margin">
-          <p className="uk-form-label uk-margin-xsmall uk-text-lead uk-text-emphasis">
-            Estatus de la actividad
-          </p>
-          <select {...register("status")} className="uk-select uk-width-1-2">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Terminado">Terminado</option>
-          </select>
-        </div>
-        </div>
-
-        <input type="submit" className="uk-button uk-button-primary uk-button-large"  value="Enviar"/>
-      </form>
-      {/*
-    
-      <form onSubmit={handleSubmit(onSubmit)} className="uk-padding">
-        <div className="uk-margin">
-          <label htmlFor="" className="uk-text-bolder">
-            Título la tarea
-          </label>
-          <div className="uk-inline">
-            <a className="uk-form-icon" href="#" uk-icon="icon: file-text"></a>
-            <input
-              defaultValue="test"
-              {...register("example")}
-              className="uk-input uk-form-width-large"
-            />
+          <div className="uk-margin">
+            <p className="uk-form-label uk-margin-xsmall uk-text-lead uk-text-emphasis">
+              Estatus de la actividad
+            </p>
+            <select {...register("status")} className="uk-select uk-width-1-2">
+              <option value="Pendiente">Pendiente</option>
+              <option value="Terminado">Terminado</option>
+            </select>
           </div>
         </div>
 
-        <div className="uk-margin">
-          <label htmlFor="" className="uk-text-bolder">
-            Descripción la tarea
-          </label>
-          <div className="uk-inline">
-            <a className="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
-            <input
-              {...register("exampleRequired", { required: true })}
-              className="uk-input uk-form-width-large"
-            />
-          </div>
+        <div className="uk-flex uk-flex-around">
+          <input
+            type="submit"
+            className="uk-button uk-text-bold uk-button-primary uk-button-large"
+            value="Guardar"
+          />
+          <button onClick={toggleModal} className="uk-button uk-button-danger">
+            Cancelar
+          </button>
         </div>
-        {errors.exampleRequired && <span>This field is required</span>}
-
-        <input type="submit" className="uk-button uk-button-secondary" />
       </form>
-     */}
     </div>,
     document.getElementById("portal")
   );
